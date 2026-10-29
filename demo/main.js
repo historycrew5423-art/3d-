@@ -2,6 +2,7 @@
 // 目的是看网页（尤其手机）上实际能做出什么画面、卡不卡。和比赛作品无关。
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import characterB64 from './assets/character-glb.js';
 
 const VERSION = 'v1';
 const hud = document.getElementById('hud');
@@ -168,14 +169,15 @@ const dustBase = dustPos.slice();
 
 // ---------- the character ----------
 let mixer = null, hero = null;
-new GLTFLoader().load('./assets/character.glb', (gltf) => {
+const glb = Uint8Array.from(atob(characterB64), (ch) => ch.charCodeAt(0)).buffer;
+new GLTFLoader().parse(glb, './assets/', (gltf) => {
   hero = gltf.scene;
   hero.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; o.frustumCulled = false; } });
   scene.add(hero);
   mixer = new THREE.AnimationMixer(hero);
   if (gltf.animations[0]) mixer.clipAction(gltf.animations[0]).play();
   msg.style.display = 'none';
-}, undefined, (err) => { msg.textContent = '人物加载失败：' + err.message; });
+}, (err) => { msg.textContent = '人物加载失败：' + err.message; });
 
 // ---------- quality + camera buttons ----------
 let high = true, follow = true;
