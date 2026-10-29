@@ -13,9 +13,9 @@ window.addEventListener('error', (e) => { msg.style.display = 'flex'; msg.textCo
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.1;
+renderer.toneMappingExposure = 1.35;
 renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.shadowMap.type = THREE.PCFShadowMap;
 document.body.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
@@ -142,7 +142,7 @@ function beam(x0, x1, y0, y1) {
 }
 const beamMat = new THREE.ShaderMaterial({
   transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
-  uniforms: { strength: { value: 0.10 } },
+  uniforms: { strength: { value: 0.14 } },
   vertexShader: 'attribute float fade; varying float vF; void main(){ vF = fade; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
   fragmentShader: 'uniform float strength; varying float vF; void main(){ gl_FragColor = vec4(vec3(1.0,0.85,0.6) * strength * (0.25 + 0.75*vF), 1.0); }',
 });
@@ -194,9 +194,14 @@ document.getElementById('cam').onclick = () => {
   follow = !follow;
   document.getElementById('cam').textContent = '镜头：' + (follow ? '跟随' : '固定');
 };
+let back = 2.1; // how far the camera sits behind the character
 function resize() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   camera.aspect = window.innerWidth / window.innerHeight;
+  // a phone held upright sees a narrow slice, so widen the view and pull the camera back
+  const portrait = camera.aspect < 1;
+  camera.fov = portrait ? 72 : 55;
+  back = portrait ? 2.9 : 2.1;
   camera.updateProjectionMatrix();
 }
 window.addEventListener('resize', resize);
@@ -219,7 +224,7 @@ renderer.setAnimationLoop(() => {
     hero.rotation.y = Math.atan2(-dir.x, -dir.z); // the model faces -Z
     if (follow) {
       const right = new THREE.Vector3(-dir.z, 0, dir.x);
-      const wantPos = p.clone().addScaledVector(dir, -2.1).addScaledVector(right, 0.55).setY(1.65);
+      const wantPos = p.clone().addScaledVector(dir, -back).addScaledVector(right, 0.55).setY(1.75);
       const wantLook = p.clone().addScaledVector(dir, 2.0).setY(1.15);
       camPos.lerp(wantPos, 1 - Math.exp(-dt * 3));
       camLook.lerp(wantLook, 1 - Math.exp(-dt * 3));
