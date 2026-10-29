@@ -30,11 +30,13 @@
 12. [鲁滨逊漂流记点子](docs/12-鲁滨逊点子.md) — 用户提出的题材：原著片段、AI 的三个方向，以及用户自己的设计（血条、死亡重来、按书走、写实画面）和 AI 的看法（未定）
 13. [连接 Unity 和 Blender](docs/13-连接Unity和Blender.md) — Blender 已在沙盒实测能用（附测试图）；Unity 的三种用法和限制
 14. [Blender 试验](docs/14-Blender试验.md) — 整理人物模型、有氛围的场景、走路动画（附图）；Blender 能做和做不到的
-15. [对话原文：第 2 段对话](docs/对话原文/第2段对话.md) — 每轮的原话和回复，后台操作只写摘要
+15. [网页画面试验](docs/15-网页画面试验.md) — 同一个场景做成网页，临时链接、截图、开 GitHub Pages 的步骤（与比赛无关）
+16. [对话原文：第 2 段对话](docs/对话原文/第2段对话.md) — 每轮的原话和回复，后台操作只写摘要
 
 ## 工具
 - `tools/blender/setup.sh`：在 Kiro Web 沙盒里安装无界面的 Blender（约 35 秒，装在仓库外的 `.tools`）。`tools/blender/smoke_test.py` 是冒烟测试。见 docs/13。
-- `tools/blender/trial/`：Blender 试验脚本（整理模型、搭场景渲染、拼走路帧）。见 docs/14。
+- `tools/blender/trial/`：Blender 试验脚本（整理模型、搭场景渲染、拼走路帧、导出无贴图人物）。见 docs/14。
+- `demo/`：网页画面试验 v1（three.js），与比赛无关。见 docs/15。
 
 ## 说明
 - 文档里的外部信息都是我用自己的话转述的，不是原文照搬；关键处附了来源链接，方便回去核对。
