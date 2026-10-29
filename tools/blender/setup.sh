@@ -19,7 +19,7 @@ mkdir -p "$DIR"/{rpms,libroot,dnf/cache,dnf/log,dnf/persist}
 
 python3 -m venv "$DIR/bpyenv"
 "$DIR/bpyenv/bin/pip" install -q --upgrade pip
-"$DIR/bpyenv/bin/pip" install -q "bpy==5.0.1"
+"$DIR/bpyenv/bin/pip" install -q "bpy==5.0.1" pillow
 
 # Libraries bpy needs that the sandbox image lacks: libSM, libICE, libGL (+ deps)
 dnf install -y -q --downloadonly --downloaddir="$DIR/rpms" \
