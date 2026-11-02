@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>画面试验（与比赛无关）</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #000; overflow: hidden; touch-action: none; }
+    canvas { display: block; }
+    #hud { position: fixed; left: 10px; top: 10px; color: #ddd; font: 13px/1.5 -apple-system, "PingFang SC", sans-serif;
+           text-shadow: 0 1px 2px #000; pointer-events: none; }
+    #bar { position: fixed; left: 0; right: 0; bottom: 14px; display: flex; gap: 10px; justify-content: center; }
+    #bar button { font: 15px -apple-system, "PingFang SC", sans-serif; padding: 9px 16px; border-radius: 20px;
+                  border: 1px solid #fff6; background: #0008; color: #fff; }
+    #credits { position: fixed; right: 8px; bottom: 4px; color: #fff8; font: 10px sans-serif; pointer-events: none; }
+    #msg { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; color: #ccc;
+           font: 16px -apple-system, "PingFang SC", sans-serif; text-align: center; padding: 20px; }
+  </style>
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three.module.js", "three/addons/": "./vendor/addons/" } }
+  </script>
+</head>
+<body>
+  <div id="msg">加载中…</div>
+  <div id="hud"></div>
+  <div id="bar">
+    <button id="quality">画质：高</button>
+    <button id="cam">镜头：跟随</button>
+  </div>
+  <div id="credits">人物：Cesium Man（Cesium，CC BY 4.0，已去掉贴图并改动）· three.js（MIT）</div>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
